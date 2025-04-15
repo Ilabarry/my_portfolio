@@ -1,0 +1,26 @@
+name: Deploy to InfinityFree
+on: 
+  push:
+    branches: [ main ]  # Se déclenche sur push vers la branche main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Étape 1 : Récupère le code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Étape 2 : Déploie via FTP
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ftp.epizy.com
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./public/  # Dossier à déployer
+          server-dir: ./htdocs/ # Dossier cible sur InfinityFree
+          exclude: |
+            .git/
+            .github/
+            README.md
