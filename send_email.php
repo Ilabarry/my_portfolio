@@ -1,7 +1,7 @@
+
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
 
 // Activation du débogage
 ini_set('display_errors', 1);
@@ -13,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
     exit("Accès direct interdit");
 }
 
-// Chargement PHPMailer
 require 'vendor/autoload.php';
 
 // Validation des données
@@ -37,58 +36,47 @@ if (!$email) {
     exit();
 }
 
-// Configuration PHPMailer
+// Configuration PHPMailer pour InfinityFree
 $mail = new PHPMailer(true);
 
 try {
-    // Configuration SMTP
+    // Configuration SMTP InfinityFree
     $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
+    $mail->Host = 'smtp.infinityfree.com'; 
     $mail->SMTPAuth = true;
-    $mail->Username = 'barryila35@gmail.com';
-    $mail->Password = 'tozk tiao ubqo tjid';
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port = 587;
-    $mail->CharSet = 'UTF-8';
+    $mail->Username = '2001-portfolio.fwh.is'; // Créez ce compte dans le panel InfinityFree
+    $mail->Password = 'J8jCucttyGYkP'; // Mot de passe du compte email
+    $mail->SMTPSecure = 'ssl';
+    $mail->Port = 465;
     
-    // Désactiver la vérification SSL (pour tests seulement)
-    $mail->SMTPOptions = [
-        'ssl' => [
-            'verify_peer' => false,
-            'verify_peer_name' => false,
-            'allow_self_signed' => true
-        ]
-    ];
-
-    // Expéditeur et destinataire
+    // Configuration du mail
     $mail->setFrom($email, "$prenom $nom");
-    $mail->addAddress('barryila35@gmail.com', 'Barry ILA');
+    $mail->addAddress('barryila35@gmail.com'); // Votre email de réception
     $mail->addReplyTo($email, "$prenom $nom");
-
-    // Contenu
-    $mail->isHTML(true);
-    $mail->Subject = "Contact Portfolio: $sujet";
-    $mail->Body = "<h3>Nouveau message de $prenom $nom</h3>
-                  <p><strong>Email:</strong> $email</p>
-                  <p><strong>Sujet:</strong> $sujet</p>
-                  <p><strong>Message:</strong></p>
-                  <p>$message</p>";
     
-    $mail->AltBody = "Message de $prenom $nom ($email)\nSujet: $sujet\n\n$message";
-
-    // Envoi
-    if (!$mail->send()) {
-        throw new Exception('Erreur lors de l\'envoi: ' . $mail->ErrorInfo);
-    }
-
-    // Succès
-    header('Location: index.html?status=success#contact');
-    exit();
-
+      // Contenu
+      $mail->isHTML(true);
+      $mail->Subject = "Contact Portfolio: $sujet";
+      $mail->Body = "<h3>Nouveau message de $prenom $nom</h3>
+                    <p><strong>Email:</strong> $email</p>
+                    <p><strong>Sujet:</strong> $sujet</p>
+                    <p><strong>Message:</strong></p>
+                    <p>$message</p>";
+      
+      $mail->AltBody = "Message de $prenom $nom ($email)\nSujet: $sujet\n\n$message";
+  
+      // Envoi
+      if (!$mail->send()) {
+          throw new Exception('Erreur lors de l\'envoi: ' . $mail->ErrorInfo);
+      }
+  
+      // Succès
+      header('Location: index.html?status=success#contact');
+      exit();
+    
 } catch (Exception $e) {
-    // Erreur
     error_log('Erreur PHPMailer: ' . $e->getMessage());
-    header('Location: index.html?status=error&message=' . urlencode($e->getMessage()) . '#contact');
+    header('Location: index.html?status=error&message='.urlencode($e->getMessage()).'#contact');
     exit();
 }
 ?>
