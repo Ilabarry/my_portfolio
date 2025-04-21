@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barry ILA | Développeur Full-Stack & Data Analyst</title>
+    <title>Barry ILA | Développeur Full-Stack & Analyste de Données</title>
     
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,31 +14,38 @@
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Slick Carousel -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
-    
     <style>
+
         :root {
-            --primary: #006064;
-            --primary-light: #00838f;
-            --secondary: #00bcd4;
-            --dark: #002f33;
-            --light: #e0f7fa;
+            --primary: #2563eb; /* Bleu moderne */
+            --primary-dark: #1e40af;
+            --primary-light: #3b82f6;
+            --dark: #1f2937;
+            --light: #f9fafb;
             --white: #ffffff;
+            --dark-mode-bg: #111827;
+            --dark-mode-card: #1f2937;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
             overflow-x: hidden;
-            padding-top: 70px;
+            padding-top: 80px;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-mode {
+            background-color: var(--dark-mode-bg);
+            color: #e5e7eb;
         }
         
         /* Header */
         header {
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
             position: fixed;
             width: 100%;
             z-index: 1000;
@@ -48,18 +53,25 @@
             top: 0;
         }
         
-        .header-solid {
-            background-color: var(--white) !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        .dark-mode header {
+            background-color: rgba(17, 24, 39, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
             color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .dark-mode .navbar-brand {
+            color: var(--primary-light);
         }
         
         .navbar-brand img {
+            margin-right: 10px;
             transition: transform 0.5s ease;
         }
         
@@ -68,11 +80,15 @@
         }
         
         .nav-link {
-            color: var(--dark) !important;
             font-weight: 500;
-            position: relative;
             margin: 0 0.5rem;
             transition: all 0.3s ease;
+            color: var(--dark) !important;
+            position: relative;
+        }
+        
+        .dark-mode .nav-link {
+            color: #e5e7eb !important;
         }
         
         .nav-link::after {
@@ -81,7 +97,7 @@
             width: 0;
             height: 2px;
             background: var(--primary);
-            bottom: 5px;
+            bottom: 0;
             left: 0;
             transition: width 0.3s ease;
         }
@@ -90,83 +106,128 @@
             width: 100%;
         }
         
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode .dark-mode-toggle {
+            color: #e5e7eb;
+        }
+        
         /* Hero Section */
-        #acceil {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            padding: 6rem 0 4rem;
-            min-height: 100vh;
+        #hero {
+            min-height: 90vh;
             display: flex;
             align-items: center;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
             position: relative;
             overflow: hidden;
         }
         
-        #acceil::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 20%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23e0f7fa"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%23e0f7fa"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23e0f7fa"/></svg>') no-repeat;
-            background-size: cover;
-            z-index: 1;
+        .dark-mode #hero {
+            background: linear-gradient(135deg, var(--dark-mode-card), var(--dark-mode-bg));
         }
         
-        .profile-img {
-            width: 100%;
-            max-width: 350px;
-            border: 5px solid var(--white);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            transition: all 0.5s ease;
+        .hero-content {
             position: relative;
             z-index: 2;
         }
         
         .hero-title {
             font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 2;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
         }
         
         .hero-subtitle {
             font-size: 1.5rem;
+            font-weight: 400;
             margin-bottom: 2rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 2;
+            opacity: 0.9;
         }
         
         .hero-description {
             font-size: 1.1rem;
             line-height: 1.8;
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+        
+        .hero-img-container {
             position: relative;
-            z-index: 2;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .hero-img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dark-mode .hero-img {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 0.75rem 1.75rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline-light {
+            border-radius: 8px;
+            padding: 0.75rem 1.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-light:hover {
+            transform: translateY(-2px);
         }
         
         /* About Section */
-        #propos {
+        #about {
             padding: 5rem 0;
             background-color: var(--light);
-            position: relative;
+        }
+        
+        .dark-mode #about {
+            background-color: var(--dark-mode-bg);
         }
         
         .section-title {
             font-size: 2.5rem;
             font-weight: 700;
-            position: relative;
-            display: inline-block;
             margin-bottom: 3rem;
             color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dark-mode .section-title {
+            color: var(--primary-light);
         }
         
         .section-title::after {
@@ -181,77 +242,49 @@
             border-radius: 2px;
         }
         
+        .dark-mode .section-title::after {
+            background: var(--primary-light);
+        }
+        
         .about-card {
             background-color: var(--white);
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 2rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
             height: 100%;
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
-        .about-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 0;
-            background: var(--primary);
-            transition: height 0.6s ease;
-        }
-        
-        .about-card:hover::before {
-            height: 100%;
+        .dark-mode .about-card {
+            background-color: var(--dark-mode-card);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.05);
         }
         
         .about-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
         
-        .btn-more {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-more::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-        
-        .btn-more:hover::after {
-            animation: ripple 1s ease-out;
+        .dark-mode .about-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
         
         /* Skills Section */
-        .skills-container {
-            background-color: var(--white);
+        #skills {
             padding: 5rem 0;
-            position: relative;
+            background-color: var(--white);
+        }
+        
+        .dark-mode #skills {
+            background-color: var(--dark-mode-card);
         }
         
         .skill-category {
             margin-bottom: 3rem;
-            position: relative;
         }
         
         .skill-category-title {
@@ -261,17 +294,19 @@
             color: var(--primary);
             display: flex;
             align-items: center;
-            position: relative;
+        }
+        
+        .dark-mode .skill-category-title {
+            color: var(--primary-light);
         }
         
         .skill-category-title i {
             margin-right: 0.8rem;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
         }
         
         .skill-item {
             margin-bottom: 1.5rem;
-            position: relative;
         }
         
         .skill-name {
@@ -283,9 +318,13 @@
         
         .progress {
             height: 8px;
-            background-color: #e2e8f0;
+            background-color: #e5e7eb;
             border-radius: 4px;
             overflow: hidden;
+        }
+        
+        .dark-mode .progress {
+            background-color: #374151;
         }
         
         .progress-bar {
@@ -295,115 +334,116 @@
         }
         
         /* Projects Section */
-        #projets {
+        #projects {
             padding: 5rem 0;
-            background-color: var(--primary-light);
-            color: white;
-            position: relative;
+            background-color: var(--light);
+        }
+        
+        .dark-mode #projects {
+            background-color: var(--dark-mode-bg);
         }
         
         .project-card {
             background-color: var(--white);
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
-            color: var(--dark);
-            margin: 15px;
-            position: relative;
-        }
-        
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 188, 212, 0.3), rgba(0, 96, 100, 0.3));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
-        .project-card:hover::before {
-            opacity: 1;
+        .dark-mode .project-card {
+            background-color: var(--dark-mode-card);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.05);
         }
         
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
         
-        .project-image {
+        .dark-mode .project-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-img {
             height: 200px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .project-image img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
+            width: 100%;
             transition: transform 0.5s ease;
         }
         
-        .project-card:hover .project-image img {
-            transform: scale(1.1);
+        .project-card:hover .project-img {
+            transform: scale(1.05);
         }
         
         .project-content {
             padding: 1.5rem;
-            position: relative;
         }
         
         .project-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--primary);
         }
         
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
+        .dark-mode .project-title {
+            color: var(--primary-light);
         }
         
-        .tech-tag {
+        .project-description {
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+        
+        .dark-mode .project-description {
+            color: #9ca3af;
+        }
+        
+        .tech-badge {
+            display: inline-block;
             background-color: #e0e7ff;
             color: var(--primary);
-            padding: 0.3rem 0.8rem;
+            padding: 0.25rem 0.75rem;
             border-radius: 50px;
             font-size: 0.8rem;
             font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
             transition: all 0.3s ease;
         }
         
-        .tech-tag:hover {
-            background-color: var(--primary);
-            color: white;
+        .dark-mode .tech-badge {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: var(--primary-light);
         }
         
         /* Contact Section */
         #contact {
             padding: 5rem 0;
-            background-color: var(--light);
-            position: relative;
+            background-color: var(--white);
+        }
+        
+        .dark-mode #contact {
+            background-color: var(--dark-mode-card);
         }
         
         .contact-card {
-            background-color: var(--white);
-            border-radius: 10px;
+            background-color: var(--light);
+            border-radius: 12px;
             padding: 2rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             height: 100%;
-            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        .dark-mode .contact-card {
+            background-color: var(--dark-mode-bg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.05);
         }
         
         .contact-info-item {
@@ -426,22 +466,43 @@
             transition: all 0.3s ease;
         }
         
+        .dark-mode .contact-icon {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: var(--primary-light);
+        }
+        
         .contact-info-item:hover .contact-icon {
             background-color: var(--primary);
             color: white;
             transform: rotate(15deg);
         }
         
+        .dark-mode .contact-info-item:hover .contact-icon {
+            background-color: var(--primary-light);
+        }
+        
         .form-control {
-            border-radius: 5px;
+            border-radius: 8px;
             padding: 0.8rem 1rem;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #e5e7eb;
             transition: all 0.3s ease;
+            background-color: var(--white);
+        }
+        
+        .dark-mode .form-control {
+            background-color: var(--dark-mode-card);
+            border-color: #374151;
+            color: #e5e7eb;
         }
         
         .form-control:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 0.2rem rgba(0, 188, 212, 0.25);
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+        }
+        
+        .dark-mode .form-control:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
         }
         
         /* Footer */
@@ -449,7 +510,6 @@
             background-color: var(--dark);
             color: white;
             padding: 3rem 0 0;
-            position: relative;
         }
         
         .footer-logo {
@@ -462,7 +522,7 @@
         }
         
         .footer-logo:hover {
-            color: var(--secondary);
+            color: var(--primary-light);
             transform: scale(1.05);
         }
         
@@ -486,14 +546,14 @@
             position: absolute;
             width: 0;
             height: 2px;
-            background: var(--secondary);
+            background: var(--primary-light);
             bottom: -5px;
             left: 0;
             transition: width 0.3s ease;
         }
         
         .footer-links a:hover {
-            color: var(--secondary);
+            color: var(--primary-light);
         }
         
         .footer-links a:hover::after {
@@ -509,7 +569,7 @@
         
         .social-links a {
             color: var(--white);
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             transition: all 0.3s ease;
             width: 40px;
             height: 40px;
@@ -522,7 +582,7 @@
         
         .social-links a:hover {
             color: var(--white);
-            background-color: var(--secondary);
+            background-color: var(--primary-light);
             transform: translateY(-3px);
         }
         
@@ -530,47 +590,6 @@
             padding: 1.5rem 0;
             background-color: rgba(0, 0, 0, 0.2);
             text-align: center;
-        }
-        
-        /* Animations */
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
-        }
-        
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 1;
-            }
-            20% {
-                transform: scale(25, 25);
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: scale(40, 40);
-            }
-        }
-        
-        @keyframes progress-animation {
-            from { width: 0%; }
-            to { width: attr(data-width); }
         }
         
         /* Responsive */
@@ -581,10 +600,6 @@
             
             .hero-subtitle {
                 font-size: 1.3rem;
-            }
-            
-            #acceil {
-                padding: 8rem 0 4rem;
             }
         }
         
@@ -599,20 +614,40 @@
                 text-align: center;
             }
             
+            .hero-description {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
             .section-title {
                 font-size: 2rem;
             }
             
-            .profile-img {
-                max-width: 250px;
-                margin: 0 auto 2rem;
+            .hero-img {
+                max-width: 120px;
+                margin-bottom: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            body {
+                padding-top: 70px;
             }
             
-            #acceil {
-                padding: 7rem 0 3rem;
+            .hero-title {
+                font-size: 1.8rem;
             }
             
-            .btn-more, .btn {
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .btn {
                 width: 100%;
                 margin-bottom: 1rem;
             }
@@ -625,57 +660,60 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand" href="#">
-                    <img src="img/barry.png" width="40" height="40" alt="Logo" class="d-inline-block align-top mr-2">
-                    Barry ILA
+                    <img src="img/barry.png" width="40" height="40" alt="Logo Barry ILA" class="d-inline-block align-top">
+                    ILA Barry 
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#acceil">Accueil</a>
+                            <a class="nav-link" href="#hero">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#propos">À propos</a>
+                            <a class="nav-link" href="#about">À propos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#competences">Compétences</a>
+                            <a class="nav-link" href="#skills">Compétences</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#projets">Projets</a>
+                            <a class="nav-link" href="#projects">Projets</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#contact">Contact</a>
                         </li>
                     </ul>
+                    <button class="dark-mode-toggle ms-3" id="darkModeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
                 </div>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="acceil">
+    <section id="hero">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-5" data-aos="fade-right" data-aos-delay="100">
-                    <div class="text-center floating">
-                        <img src="img/barry1.png" alt="Barry ILA" class="profile-img pulse">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h1 class="hero-title">ILA Barry</h1>
+                    <h2 class="hero-subtitle">Développeur Full-Stack & Analyste de Données</h2>
+                    <p class="hero-description">
+                        Passionné par la création d'applications performantes, intuitives et sécurisées. Je combine compétences techniques et esprit analytique pour résoudre des problématiques concrètes.
+                    </p>
+                    <div class="d-flex flex-wrap hero-buttons">
+                        <a href="cv complet/index.html" target="_blank" class="btn btn-primary me-3 mb-3">
+                            <i class="fas fa-file-alt me-2"></i>Mon CV
+                        </a>
+                        <a href="LM-complet/index.html" target="_blank" class="btn btn-outline-light mb-3">
+                            <i class="fas fa-envelope me-2"></i>Lettre de motivation
+                        </a>
                     </div>
                 </div>
-                <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
-                    <h1 class="hero-title">ILA BARRY</h1>
-                    <h2 class="hero-subtitle">Développeur Full-Stack & Data Analyst</h2>
-                    <div class="hero-description">
-                        <p>
-                            Développeur web passionné par la création d'interfaces utilisateurs intuitives et d'applications sécurisées. 
-                            Spécialisé dans les technologies modernes avec une expertise en traitement de données avancées. 
-                            Capacité à travailler en équipe et à m'adapter aux nouvelles technologies.
-                        </p>
-                    </div>
-                    <div class="mt-4">
-                        <a href="#projets" class="btn btn-primary btn-lg mr-3 shake">Voir mes projets</a>
-                        <a href="#contact" class="btn btn-outline-light btn-lg shake">Me contacter</a>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="hero-img-container">
+                        <img src="img/propos-removebg-preview.png" alt="Photo de Barry ILA" class="hero-img">
                     </div>
                 </div>
             </div>
@@ -683,28 +721,29 @@
     </section>
 
     <!-- About Section -->
-    <section id="propos">
+    <section id="about">
         <div class="container">
-            <h2 class="text-center section-title" data-aos="zoom-in">Qui suis-je ?</h2>
+            <h2 class="text-center section-title" data-aos="zoom-in">À propos de moi</h2>
             <div class="row">
-                <div class="col-lg-6 mb-4" data-aos="fade-right" data-aos-delay="100">
+                <div class="col-lg-6 mb-4" data-aos="fade-right">
                     <div class="about-card">
+                        <h3 class="mb-3">Mon parcours</h3>
                         <p>
-                            Je suis <strong>ILA BARRY</strong>, né en Haute Casamance (Sénégal). Après un parcours scolaire complet (primaire à lycée), j'ai obtenu mon BAC au lycée Général De Gaulle à Saint-Louis.
+                            Je suis <strong>ILA Barry</strong>, né en Haute Casamance (Sénégal). Après un parcours scolaire complet (primaire à lycée), j'ai obtenu mon BAC au lycée Charlles De Gaulle à Saint-Louis.
                         </p>
                         <p>
                             Actuellement étudiant en Développement d'Applications à l'Université Numérique Cheikh Hamidou Kane, je me spécialise dans les technologies web et mobiles. J'ai complété ma formation par un programme intensif en développement Full-Stack au Centre de Formation Académique Les Tutoriels.
                         </p>
-                        <button class="btn-more" id="btn">Voir plus</button>
                     </div>
                 </div>
-                <div class="col-lg-6 mb-4" data-aos="fade-left" data-aos-delay="200">
-                    <div id="afiche" class="about-card" style="display: flex;">
+                <div class="col-lg-6 mb-4" data-aos="fade-left">
+                    <div class="about-card">
+                        <h3 class="mb-3">Mes atouts</h3>
                         <p>
                             Mon parcours atypique, alliant études traditionnelles et formation intensive en informatique, m'a doté d'une grande capacité d'adaptation. Passionné par la technologie et le football, je combine rigueur technique et esprit d'équipe.
-                       
-                            En plus de mes compétences en développement, j'ai suivi une formation avancée en traitement de données (Excel, Power Query, Power Pivot) qui me permet d'analyser et visualiser efficacement des données complexes. <br><br>
-                        <button class="btn-more" id="btnimg">Voir mon parcours</button>
+                        </p>
+                        <p>
+                            En plus de mes compétences en développement, j'ai suivi une formation avancée en traitement de données (Excel, Power Query, Power Pivot) qui me permet d'analyser et visualiser efficacement des données complexes.
                         </p>
                     </div>
                 </div>
@@ -713,27 +752,27 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="competences" class="skills-container">
+    <section id="skills">
         <div class="container">
-            <h2 class="text-center section-title" data-aos="zoom-in">Mes Compétences Techniques</h2>
+            <h2 class="text-center section-title" data-aos="zoom-in">Mes Compétences</h2>
             
             <div class="row">
-                <!-- Langages -->
-                <div class="col-md-4" data-aos="flip-left" data-aos-delay="100">
+                <!-- Langages & Outils -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="skill-category">
-                        <h3 class="skill-category-title"><i class="fas fa-code"></i> Langages</h3>
+                        <h3 class="skill-category-title"><i class="fas fa-code me-2"></i>Langages & Outils</h3>
                         <div class="skill-item">
                             <div class="skill-name">
-                                <span>HTML5</span>
-                                <span>100%</span>
+                                <span>HTML5/CSS3</span>
+                                <span>95%</span>
                             </div>
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" data-width="100%"></div>
+                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" data-width="95%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <div class="skill-name">
-                                <span>CSS3</span>
+                                <span>JavaScript</span>
                                 <span>85%</span>
                             </div>
                             <div class="progress">
@@ -742,50 +781,40 @@
                         </div>
                         <div class="skill-item">
                             <div class="skill-name">
-                                <span>JavaScript</span>
+                                <span>PHP</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>VS CODE/XAMPP</span>
+                                <span>100%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" data-width="80%"></div>
+                            </div>
+                        </div><div class="skill-item">
+                            <div class="skill-name">
+                                <span>Git/GitHub</span>
                                 <span>80%</span>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" data-width="80%"></div>
                             </div>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>PHP</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" data-width="95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>SQL</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" data-width="95%"></div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 
                 <!-- Frameworks -->
-                <div class="col-md-4" data-aos="flip-left" data-aos-delay="200">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="skill-category">
-                        <h3 class="skill-category-title"><i class="fas fa-layer-group"></i> Frameworks</h3>
+                        <h3 class="skill-category-title"><i class="fas fa-layer-group me-2"></i>Frameworks</h3>
                         <div class="skill-item">
                             <div class="skill-name">
                                 <span>Bootstrap</span>
-                                <span>100%</span>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" data-width="100%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>Angular</span>
                                 <span>95%</span>
                             </div>
                             <div class="progress">
@@ -795,28 +824,37 @@
                         <div class="skill-item">
                             <div class="skill-name">
                                 <span>Laravel</span>
-                                <span>95%</span>
+                                <span>90%</span>
                             </div>
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" data-width="95%"></div>
+                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" data-width="90%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <div class="skill-name">
-                                <span>jQuery</span>
+                                <span>JQUERY</span>
                                 <span>85%</span>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" data-width="85%"></div>
                             </div>
                         </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Angular</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" data-width="80%"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Traitement de données -->
-                <div class="col-md-4" data-aos="flip-left" data-aos-delay="300">
+                <!-- Data Analysis -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="skill-category">
-                        <h3 class="skill-category-title"><i class="fas fa-database"></i> Data Analysis</h3>
+                        <h3 class="skill-category-title"><i class="fas fa-database me-2"></i>Analyse de Données</h3>
                         <div class="skill-item">
                             <div class="skill-name">
                                 <span>Excel Avancé</span>
@@ -828,29 +866,29 @@
                         </div>
                         <div class="skill-item">
                             <div class="skill-name">
-                                <span>Power Query</span>
-                                <span>80%</span>
+                                <span>Power BI</span>
+                                <span>75%</span>
                             </div>
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" data-width="80%"></div>
+                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" data-width="85%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <div class="skill-name">
-                                <span>Power Pivot</span>
-                                <span>80%</span>
+                                <span>SQL</span>
+                                <span>90%</span>
                             </div>
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" data-width="80%"></div>
+                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" data-width="90%"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <div class="skill-name">
-                                <span>MySQL</span>
-                                <span>93%</span>
+                                <span>Power Query/Pivot</span>
+                                <span>85%</span>
                             </div>
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="93" aria-valuemin="0" aria-valuemax="100" data-width="93%"></div>
+                                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" data-width="85%"></div>
                             </div>
                         </div>
                     </div>
@@ -860,85 +898,81 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projets">
+    <section id="projects">
         <div class="container">
-            <h2 class="text-center section-title text-white" data-aos="zoom-in">Mes Projets</h2>
+            <h2 class="text-center section-title" data-aos="zoom-in">Mes Projets Récents</h2>
             
-            <div class="projects-slider">
-                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="project-image">
-                        <img src="img/projet_tele.jpg" alt="OuzTV">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">OuzTV - Plateforme de gestion</h3>
-                        <p class="card-text">Solution complète pour la gestion des émissions télévisées et le suivi des journalistes avec système de pointage automatisé.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Angular</span>
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">MySQL</span>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-card">
+                        <img src="img/bibliotheque.jpg" alt="Gestion Bibliothèque" class="project-img">
+                        <div class="project-content">
+                            <h3 class="project-title">Gestion de Bibliothèque</h3>
+                            <p class="project-description">
+                                Solution complète pour la gestion des livres et événements avec système de réservation automatisé.
+                            </p>
+                            <div class="mb-3">
+                                <span class="tech-badge">Laravel</span>
+                                <span class="tech-badge">Bootstrap</span>
+                                <span class="tech-badge">MySQL</span>
+                            </div>
+                            <a href="https://github.com/Ilabarry/Laravel-gestion_bibbliotheque-evenement" target="_blank" class="btn btn-primary w-100">
+                                <i class="fab fa-github me-2"></i>Voir le code
+                            </a>
                         </div>
-                        <a href="#" class="btn btn-primary mt-2">Voir le projet</a>
                     </div>
                 </div>
                 
-                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="project-image">
-                        <img src="img/projet_voyage.jpg" alt="Sénégal Transport">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Sénégal Transport</h3>
-                        <p class="card-text">Plateforme de réservation de billets pour les transports inter-régionaux avec système de paiement en ligne sécurisé.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Bootstrap</span>
-                            <span class="tech-tag">PHP</span>
-                            <span class="tech-tag">JavaScript</span>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-card">
+                        <img src="img/projet_voyage.jpg" alt="Sénégal Transport" class="project-img">
+                        <div class="project-content">
+                            <h3 class="project-title">Sénégal Transport</h3>
+                            <p class="project-description">
+                                Plateforme de réservation de billets pour les transports inter-régionaux avec système de paiement en ligne sécurisé.
+                            </p>
+                            <div class="mb-3">
+                                <span class="tech-badge">PHP</span>
+                                <span class="tech-badge">JavaScript</span>
+                                <span class="tech-badge">Bootstrap</span>
+                            </div>
+                            <a href="transport/index.php" target="_blank" class="btn btn-primary w-100">
+                                <i class="fas fa-external-link-alt me-2"></i>Voir le projet
+                            </a>
                         </div>
-                        <a href="#" class="btn btn-primary mt-2">Voir le projet</a>
                     </div>
                 </div>
                 
-                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="project-image">
-                        <img src="img/projet_resto.jpg" alt="Resto Bien-Être">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Resto Bien-Être</h3>
-                        <p class="card-text">Site web complet pour restaurant avec système de réservation en ligne, menu digital et gestion des commandes.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">CSS3</span>
-                            <span class="tech-tag">jQuery</span>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-card">
+                        <img src="img/acceuil.jpg" alt="Portfolio" class="project-img">
+                        <div class="project-content">
+                            <h3 class="project-title">Mon Portfolio</h3>
+                            <p class="project-description">
+                                Site web personnel présentant mes compétences, projets et parcours professionnel.
+                            </p>
+                            <div class="mb-3">
+                                <span class="tech-badge">HTML5</span>
+                                <span class="tech-badge">CSS3</span>
+                                <span class="tech-badge">JavaScript</span>
+                            </div>
+                            <a href="https://github.com/Ilabarry/my_portfolio" target="_blank" class="btn btn-primary w-100">
+                                <i class="fab fa-github me-2"></i>Voir le code
+                            </a>
                         </div>
-                        <a href="#" class="btn btn-primary mt-2">Voir le projet</a>
-                    </div>
-                </div>
-                
-                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/400x200?text=Dashboard+Data" alt="Dashboard Data">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Dashboard Analytique</h3>
-                        <p class="card-text">Tableau de bord interactif pour l'analyse de données avec Power Query et Power Pivot.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Excel</span>
-                            <span class="tech-tag">Power Query</span>
-                            <span class="tech-tag">Power Pivot</span>
-                        </div>
-                        <a href="#" class="btn btn-primary mt-2">Voir le projet</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    
     <!-- Contact Section -->
     <section id="contact">
         <div class="container">
             <h2 class="text-center section-title" data-aos="zoom-in">Contactez-moi</h2>
             
-            <div class="row">
-                <div class="col-lg-5 mb-4" data-aos="fade-right" data-aos-delay="100">
+            <div class="row g-4">
+                <div class="col-lg-5" data-aos="fade-right">
                     <div class="contact-card">
                         <div class="contact-info-item">
                             <div class="contact-icon">
@@ -974,47 +1008,46 @@
                         <div class="mt-4">
                             <h4>Réseaux sociaux</h4>
                             <div class="social-links">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-github"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f text-success"></i></a>
+                                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-success"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fab fa-twitter text-success"></i></a>
+                                <a href="#" aria-label="GitHub"><i class="fab fa-github text-success"></i></a>
+                                <a href="#" aria-label="Instagram"><i class="fab fa-instagram text-success"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- partie dans votre section contact -->
-                <div class="col-lg-7 mb-4" data-aos="fade-left" data-aos-delay="200">
+                <div class="col-lg-7" data-aos="fade-left">
                     <div class="contact-card">
-                        <form id="contactForm" action="send_email.php" method="POST">
-                            <div class="form-row">
-                                <div class="col-md-6 form-group">
-                                    <label for="prenom">Prénom</label>
-                                    <input type="text" class="form-control" id="prenom" name="prenom" required>
+                        <form id="contactForm" method="POST">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label">Prénom</label>
+                                    <input type="text" class="form-control" name="firstName" id="firstName" required>
                                 </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="nom">Nom de famille</label>
-                                    <input type="text" class="form-control" id="nom" name="nom" required>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label">Nom</label>
+                                    <input type="text" class="form-control" name="lastName" id="lastName" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="subject" class="form-label">Sujet</label>
+                                    <input type="text" class="form-control" name="subject" id="subject" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label">Message</label>
+                                    <textarea class="form-control" id="message" rows="5" name="message" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-paper-plane me-2"></i>Envoyer le message
+                                    </button>
                                 </div>
                             </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Adresse email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="sujet">Sujet</label>
-                                <input type="text" class="form-control" id="sujet" name="sujet" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary btn-block">Envoyer le message</button>
                         </form>
                     </div>
                 </div>
@@ -1023,172 +1056,185 @@
     </section>
 
     <!-- Footer -->
-    <footer id="footer">
+    <footer id="footer" class="bg-dark text-white pt-5">
         <div class="container">
-            <div class="text-center">
-                <a href="#" class="footer-logo">Barry ILA</a>
-                
-                <div class="footer-links">
-                    <a href="#acceil">Accueil</a>
-                    <a href="#propos">À propos</a>
-                    <a href="#competences">Compétences</a>
-                    <a href="#projets">Projets</a>
-                    <a href="#contact">Contact</a>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h3 class="h4 mb-3">ILA Barry</h3>
+                    <p>
+                        Développeur Full-Stack & Analyste de Données passionné par la création de solutions innovantes et performantes.
+                    </p>
                 </div>
-                
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h4 class="h5 mb-3">Liens rapides</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#hero" class="text-white text-decoration-none">Accueil</a></li>
+                        <li class="mb-2"><a href="#about" class="text-white text-decoration-none">À propos</a></li>
+                        <li class="mb-2"><a href="#skills" class="text-white text-decoration-none">Compétences</a></li>
+                        <li class="mb-2"><a href="#projects" class="text-white text-decoration-none">Projets</a></li>
+                        <li><a href="#contact" class="text-white text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h4 class="h5 mb-3">Ressources</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="cv complet/index.html" target="_blank" class="text-white text-decoration-none">Mon CV</a></li>
+                        <li class="mb-2"><a href="LM-complet/index.html" target="_blank" class="text-white text-decoration-none">Lettre de motivation</a></li>
+                        <li><a href="https://github.com/Ilabarry" target="_blank" class="text-white text-decoration-none">Mon GitHub</a></li><br>
+                        <li><a href="https://www.linkedin.com/in/ila-barry-259008343/" target="_blank" class="text-white text-decoration-none">Mon Linkdin</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h4 class="h5 mb-3">Contact</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-phone-alt me-2"></i> +221 78 324 94 24</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> barryila20@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Saint-Louis, Sénégal</li>
+                    </ul>
                 </div>
             </div>
-            
-            <div class="copyright">
-                <p class="mb-0">&copy; 2024 Barry ILA. Tous droits réservés.</p>
+            <hr class="my-4 bg-light">
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <p class="mb-0">© 2024 ILA Barry | Full-Stack Developer & Data Analyst | All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links justify-content-md-end">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://github.com/Ilabarry" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-    <!-- Slick Carousel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     
+    <!-- Main JS -->
     <script>
-        // Initialiser AOS
+        // Initialiser AOS Animation
         AOS.init({
             duration: 800,
             easing: 'ease-out-quad',
-            once: true,
-            mirror: false
+            once: true
         });
         
-        // Initialiser le slider
-        $(document).ready(function(){
-
-            $('.projects-slider').slick({
-                dots: true,
-                infinite: true,
-                speed: 800,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 3000,
-                cssEase: 'ease-out',
-                responsive: [
-                    {
-                        breakpoint: 992,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2
-                        }
-                    },
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    }
-                ]
-            });
-
-            // const urlParams = new URLSearchParams(window.location.search);
-            // const status = urlParams.get('status');
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        // Vérifier le mode préféré de l'utilisateur
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
             
-            // if (status === 'success') {
-            //     alert('Message envoyé avec succès!');
-            //     // Nettoyer l'URL
-            //     window.history.replaceState({}, document.title, window.location.pathname);
-            // } else if (status === 'error') {
-            //     const errorMessage = urlParams.get('message');
-            //     alert('Erreur lors de l\'envoi du message: ' + errorMessage);
-            //     window.history.replaceState({}, document.title, window.location.pathname);
-            // }
-
-        });
-        // Animation du header au scroll
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                header.classList.add('header-solid');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             } else {
-                header.classList.remove('header-solid');
+                localStorage.setItem('darkMode', 'disabled');
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
             }
         });
         
         // Animation des barres de compétences
         function animateSkills() {
-            const skillsSection = document.querySelector('.skills-container');
             const skillBars = document.querySelectorAll('.progress-bar');
-            const skillsSectionTop = skillsSection.offsetTop;
-            const windowHeight = window.innerHeight;
             
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > skillsSectionTop - windowHeight + 200) {
-                    skillBars.forEach(bar => {
-                        const width = bar.getAttribute('aria-valuenow');
-                        bar.style.width = width + '%';
-                    });
-                }
+            skillBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width;
             });
         }
         
-        animateSkills();
-        
-        // Animation des cartes au scroll
-        const animateOnScroll = () => {
-            const elements = document.querySelectorAll('.about-card, .project-card, .contact-card');
-            
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.3;
-                
-                if(elementPosition < screenPosition) {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
+        // Détecter quand la section compétences est visible
+        const skillsSection = document.getElementById('skills');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateSkills();
+                    observer.unobserve(entry.target);
                 }
             });
-        };
+        }, { threshold: 0.1 });
         
-        // Initial state
-        document.querySelectorAll('.about-card, .project-card, .contact-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease-out';
-        });
-        
-        window.addEventListener('scroll', animateOnScroll);
-        animateOnScroll(); // Trigger une fois au chargement
-        
-        // Smooth scrolling pour tous les liens
-        $('a[href*="#"]').on('click', function(e) {
-            e.preventDefault();
-            
-            $('html, body').animate(
-                {
-                    scrollTop: $($(this).attr('href')).offset().top - 70,
-                },
-                500,
-                'linear'
-            );
-        });
+        observer.observe(skillsSection);
         
         // Gestion du formulaire de contact
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
             e.preventDefault();
             
-            // Ici vous pourriez ajouter le code pour envoyer le formulaire
-            alert('Message envoyé avec succès!');
-            this.reset();
+            const formData = new FormData(this);
+
+            fetch('send_email.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) // essaie de lire le JSON
+            .then(data => {
+                if (data.success) {
+                    alert("✅ " + data.message);
+                    document.getElementById('contactForm').reset();
+                } else {
+                    alert("❌ " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Erreur réseau:", error);
+                alert("❌ Une erreur s'est produite.");
+            });
+        });
+        
+        // Navigation fluide
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Header solide au scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                
+                if (body.classList.contains('dark-mode')) {
+                    header.style.background = 'rgba(17, 24, 39, 0.98)';
+                }
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                
+                if (body.classList.contains('dark-mode')) {
+                    header.style.background = 'rgba(17, 24, 39, 0.95)';
+                }
+            }
         });
     </script>
 </body>

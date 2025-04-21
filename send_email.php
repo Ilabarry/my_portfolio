@@ -1,82 +1,68 @@
-
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-// Activation du débogage
+// Affichage d'erreurs pour le dev
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Vérification méthode POST
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header("HTTP/1.1 403 Forbidden");
-    exit("Accès direct interdit");
-}
+// Bloquer tout affichage inutile
+ob_start();
+header('Content-Type: application/json');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
-// Validation des données
-$required = ['prenom', 'nom', 'email', 'sujet', 'message'];
-foreach ($required as $field) {
-    if (empty($_POST[$field])) {
-        header('Location: index.html?status=error&message=Champ%20'.$field.'%20manquant#contact');
-        exit();
+$response = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $prenom  = htmlspecialchars($_POST['firstName'] ?? '');
+    $nom     = htmlspecialchars($_POST['lastName'] ?? '');
+    $email   = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
+    $sujet   = htmlspecialchars($_POST['subject'] ?? '');
+    $message = htmlspecialchars($_POST['message'] ?? '', ENT_QUOTES, 'UTF-8');
+
+    if (!$email) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Email invalide']);
+        exit;
     }
+
+    $mail = new PHPMailer(true);
+
+    try {
+        // Config SMTP
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'barryila20@gmail.com';
+        $mail->Password = 'alnd yzka ehpw lozi'; // Utiliser un mot de passe d'application
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+
+        // Expéditeur et destinataire
+        $mail->setFrom($email, "$prenom $nom");
+        $mail->addAddress('barryila35@gmail.com');
+
+        // Contenu
+        $mail->isHTML(true);
+        $mail->Subject = $sujet;
+        $mail->Body = "
+            <h3>Message de $prenom $nom</h3>
+            <p><strong>Email :</strong> $email</p>
+            <p><strong>Sujet :</strong> $sujet</p>
+            <p><strong>Message :</strong><br>$message</p>
+        ";
+
+        $mail->send();
+        echo json_encode(['success' => true, 'message' => 'Message envoyé avec succès.']);
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => 'Erreur : ' . $mail->ErrorInfo]);
+    }
+} else {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Méthode non autorisée.']);
 }
 
-// Nettoyage des données
-$prenom = htmlspecialchars($_POST['prenom']);
-$nom = htmlspecialchars($_POST['nom']);
-$email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-$sujet = htmlspecialchars($_POST['sujet']);
-$message = htmlspecialchars($_POST['message']);
-
-if (!$email) {
-    header('Location: index.html?status=error&message=Email%20invalide#contact');
-    exit();
-}
-
-// Configuration PHPMailer pour InfinityFree
-$mail = new PHPMailer(true);
-
-try {
-    // Configuration SMTP InfinityFree
-    $mail->isSMTP();
-    $mail->Host = 'smtp.infinityfree.com'; 
-    $mail->SMTPAuth = true;
-    $mail->Username = '2001-portfolio.fwh.is'; // Créez ce compte dans le panel InfinityFree
-    $mail->Password = 'J8jCucttyGYkP'; // Mot de passe du compte email
-    $mail->SMTPSecure = 'ssl';
-    $mail->Port = 465;
-    
-    // Configuration du mail
-    $mail->setFrom($email, "$prenom $nom");
-    $mail->addAddress('barryila35@gmail.com'); // Votre email de réception
-    $mail->addReplyTo($email, "$prenom $nom");
-    
-      // Contenu
-      $mail->isHTML(true);
-      $mail->Subject = "Contact Portfolio: $sujet";
-      $mail->Body = "<h3>Nouveau message de $prenom $nom</h3>
-                    <p><strong>Email:</strong> $email</p>
-                    <p><strong>Sujet:</strong> $sujet</p>
-                    <p><strong>Message:</strong></p>
-                    <p>$message</p>";
-      
-      $mail->AltBody = "Message de $prenom $nom ($email)\nSujet: $sujet\n\n$message";
-  
-      // Envoi
-      if (!$mail->send()) {
-          throw new Exception('Erreur lors de l\'envoi: ' . $mail->ErrorInfo);
-      }
-  
-      // Succès
-      header('Location: index.html?status=success#contact');
-      exit();
-    
-} catch (Exception $e) {
-    error_log('Erreur PHPMailer: ' . $e->getMessage());
-    header('Location: index.html?status=error&message='.urlencode($e->getMessage()).'#contact');
-    exit();
-}
-?>
+ob_end_flush();
+exit;

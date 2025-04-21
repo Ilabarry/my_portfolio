@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lettre de Motivation - ILA BARRY</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <style>
+    :root {
+      --primary-color: #006064;
+      --secondary-color: #00838f;
+      --accent-color: #00bcd4;
+      --dark-color: #333;
+      --light-color: #f8f9fa;
+      --text-color: #333;
+      --text-light: #666;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+      margin: 0;
+      color: var(--text-color);
+    }
+
+    .letter-container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+    }
+
+    .letter-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--primary-color);
+    }
+
+    .letter-header h1 {
+      color: var(--primary-color);
+      font-size: 2.2rem;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    .letter-header .title {
+      color: var(--secondary-color);
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      font-size: 0.95rem;
+      margin: 5px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-info i {
+      color: var(--primary-color);
+      width: 20px;
+      margin-right: 8px;
+    }
+
+    .contact-info a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .contact-info a:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+    }
+
+    .letter-date {
+      text-align: right;
+      margin-bottom: 30px;
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .letter-subject {
+      font-weight: bold;
+      color: var(--primary-color);
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .letter-content {
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .letter-content p {
+      margin-bottom: 15px;
+    }
+
+    .salutation {
+      font-weight: 500;
+    }
+
+    .letter-signature {
+      margin-top: 50px;
+      text-align: right;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .letter-container {
+        padding: 20px;
+      }
+      .letter-header h1 {
+        font-size: 1.8rem;
+      }
+      .letter-header .title {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="letter-container">
+    <header class="letter-header">
+      <h1>ILA BARRY</h1>
+      <p class="title">Développeur Full Stack & Analyste de Données</p>
+      <div class="contact-info">
+        <p><i class="fas fa-map-marker-alt"></i> Saint-Louis, Sénégal</p>
+        <p><i class="fas fa-phone"></i> +221 78 324 94 24</p>
+        <p><i class="fas fa-envelope"></i> barryila35@gmail.com</p>
+        <p><i class="fab fa-github"></i> <a href="https://github.com/Ilabarry" target="_blank">github.com/Ilabarry</a></p>
+        <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/ila-barry-259008343/" target="_blank">linkedin.com/in/ila-barry</a></p>
+      </div>
+    </header>
+
+    <main class="letter-main">
+      <div class="letter-date">
+        <p>Saint-Louis, le <span id="current-date"></span></p>
+      </div>
+
+      <div class="letter-subject">
+        Objet : Candidature spontanée au poste de Développeur Full Stack
+      </div>
+
+      <div class="letter-content">
+        <p class="salutation">Madame, Monsieur,</p>
+
+        <p>
+          Développeur Full Stack passionné, je vous adresse ma candidature avec la volonté de mettre mes compétences techniques et ma rigueur au service de votre équipe. Fort d’une solide formation et de plusieurs projets concrets, je suis prêt à relever de nouveaux défis.
+        </p>
+
+        <p>
+          Diplômé en développement Full Stack, j’ai acquis une expertise en technologies telles que HTML5, CSS3, JavaScript, Angular, PHP, Laravel, MySQL. J’ai réalisé plusieurs projets personnels, dont un système de gestion de bibliothèque/événements et une plateforme de gestion de transport, que j’ai entièrement conçus, du back-end à l’interface utilisateur.
+        </p>
+
+        <p>
+          En complément de mes compétences en développement, j’ai suivi une formation spécialisée en analyse de données avancée avec Excel, Power Query et Power Pivot. Cela me permet d’intervenir efficacement sur des projets combinant développement web et traitement de données.
+        </p>
+
+        <p>
+          Curieux, rigoureux et autonome, je m’adapte facilement aux environnements collaboratifs et aux outils modernes tels que Git et GitHub. Mon objectif est de contribuer à des projets à impact réel, tout en continuant à progresser dans un cadre stimulant.
+        </p>
+
+        <p>
+          Je serais honoré de pouvoir échanger avec vous sur les besoins de votre structure et la manière dont je pourrais y répondre efficacement.
+        </p>
+
+        <p>
+          Dans l’attente de votre retour, je vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations distinguées.
+        </p>
+
+        <div class="letter-signature">
+          <p>ILA BARRY</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const today = new Date();
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    document.getElementById('current-date').textContent = today.toLocaleDateString('fr-FR', options);
+  </script>
+</body>
+</html>
