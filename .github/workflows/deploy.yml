@@ -1,26 +1,67 @@
 name: Deploy to InfinityFree
-on: 
+
+on:
   push:
-    branches: [ main ]  # Se déclenche sur push vers la branche main
+    branches: [ main ]
+  workflow_dispatch:  # Permet de déclencher manuellement depuis l'interface GitHub
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15  # Évite les timeouts longs
+
     steps:
-      # Étape 1 : Récupère le code
+      # Étape 1 - Récupération du code
       - name: Checkout code
         uses: actions/checkout@v4
-
-      # Étape 2 : Déploie via FTP
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
-          server: ftp.epizy.com
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./public/  # Dossier à déployer
-          server-dir: ./htdocs/ # Dossier cible sur InfinityFree
+          fetch-depth: 0  # Récupère tout l'historique Git
+
+      # Étape 2 - Installation des dépendances (ex: pour un projet Node.js)
+      - name: Install dependencies
+        run: |
+          npm install
+          npm run build  # Si vous avez un build step
+
+      # Étape 3 - Déploiement FTP
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+        with:
+          server: ftpupload.net
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORDE }}
+          port: 21
+          local-dir: ./dist/  # Ou './' si pas de build step
+          server-dir: ./htdocs/
+          protocol: ftp
+          dangerous-clean-slate: false
           exclude: |
             .git/
             .github/
+            .gitignore
             README.md
+            *.sql
+            .env*
+            /tests/
+            /node_modules/
+          verify: true  # Vérifie les transferts
+
+      # Étape 4 - Notification (optionnelle)
+      - name: Slack Notification
+        if: always()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_COLOR: ${{ job.status == 'success' && '#36a64f' || '#ff0000' }}
+          SLACK_TITLE: 'Deployment Status'
+          SLACK_MESSAGE: 'Deployment to InfinityFree ${{ job.status }}'
+
+      # Étape 5 - Purge du cache (optionnelle)
+      - name: Clear Cache
+        if: success()
+        run: |
+          curl -X POST "https://api.cloudflare.com/client/v4/zones/YOUR_ZONE_ID/purge_cache" \
+          -H "X-Auth-Email: ${{ secrets.CF_EMAIL }}" \
+          -H "X-Auth-Key: ${{ secrets.CF_API_KEY }}" \
+          -H "Content-Type: application/json" \
+          --data '{"purge_everything":true}'
