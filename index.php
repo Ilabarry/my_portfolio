@@ -207,6 +207,41 @@
         .btn-outline-light:hover {
             transform: translateY(-2px);
         }
+
+        /* Hero Freelance Badge */
+        #hero .badge {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+        }
+
+        .dark-mode #hero .badge {
+            background-color: var(--primary-light) !important;
+            color: white !important;
+        }
+
+        /* Freelance info */
+        .freelance-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            max-width: 90%;
+        }
+
+        .dark-mode .freelance-info {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Animation pulsation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
         
         /* About Section */
         #about {
@@ -272,6 +307,39 @@
         
         .dark-mode .about-card:hover {
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Services Section */
+        #services {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .dark-mode #services {
+            background-color: var(--dark-mode-card);
+        }
+
+        .service-icon {
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .service-icon {
+            color: var(--primary-light);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
+        }
+
+        .service-card ul {
+            padding-left: 0;
+        }
+
+        .service-card li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
         }
         
         /* Skills Section */
@@ -661,7 +729,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand" href="#">
-                    <img src="img/barry.png" width="40" height="40" alt="Logo Barry ILA" class="d-inline-block align-top">
+                    <img src="img/logo.png" width="40" height="40" alt="Logo Barry ILA" class="d-inline-block align-top">
                     ILA Barry 
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -674,6 +742,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#about">À propos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services">Mes revices</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#skills">Compétences</a>
@@ -694,32 +765,45 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="hero">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <h1 class="hero-title">ILA Barry</h1>
-                    <h2 class="hero-subtitle">Développeur Full-Stack & Analyste de Données</h2>
-                    <p class="hero-description">
-                        Passionné par la création d'applications performantes, intuitives et sécurisées. Je combine compétences techniques et esprit analytique pour résoudre des problématiques concrètes.
-                    </p>
-                    <div class="d-flex flex-wrap hero-buttons">
-                        <a href="cv complet/index.html" target="_blank" class="btn btn-primary me-3 mb-3">
-                            <i class="fas fa-file-alt me-2"></i>Mon CV
-                        </a>
-                        <a href="LM-complet/index.html" target="_blank" class="btn btn-outline-light mb-3">
-                            <i class="fas fa-envelope me-2"></i>Lettre de motivation
-                        </a>
+        <section id="hero">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <span class="badge bg-light text-dark mb-3">Freelance Disponible</span>
+                        <h1 class="hero-title">ILA Barry</h1>
+                        <h2 class="hero-subtitle">Développeur Full-Stack Freelance & Analyste de Données</h2>
+                        <p class="hero-description">
+                            Je crée des solutions web sur mesure pour les entreprises et particuliers. 
+                            <strong>Disponible pour des missions en freelance</strong>, je combine expertise technique 
+                            et approche personnalisée pour répondre à vos besoins digitaux.
+                        </p>
+                        <div class="d-flex flex-wrap hero-buttons">
+                            <a href="#contact" class="btn btn-primary me-3 mb-3">
+                                <i class="fas fa-calendar-check me-2"></i>Disponibilités
+                            </a>
+                            <a href="cv complet/index.html" target="_blank" class="btn btn-outline-light mb-3">
+                                <i class="fas fa-file-alt me-2"></i>Voir mon CV
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <div class="hero-img-container">
-                        <img src="img/propos-removebg-preview.png" alt="Photo de Barry ILA" class="hero-img">
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <div class="hero-img-container">
+                            <img src="img/propos-removebg-preview.png" alt="Photo de Barry ILA - Développeur Freelance" class="hero-img">
+                        </div>
+                        <div class="freelance-info mt-2">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Disponible pour des missions courtes ou longues durées</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Travail à distance ou sur Saint-Louis et environs</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
     <!-- About Section -->
     <section id="about">
@@ -748,6 +832,128 @@
                         </p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-2 bg-white">
+        <div class="container">
+            <h2 class="text-center section-title" data-aos="zoom-in">Services Professionnels</h2>
+            <p class="text-center mb-4 fs-5" data-aos="fade-up">Solutions techniques clés en main pour startups et PME</p>
+            
+            <div class="row g-4">
+                <!-- Service 1 - Développement -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card about-card h-100 d-flex flex-column">
+                        <div>
+                            <div class="service-icon mb-3">
+                                <i class="fas fa-laptop-code fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="mb-3">Développement Sur Mesure</h3>
+                            <p class="text-muted">
+                                Applications web performantes adaptées à vos processus métiers.
+                            </p>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2 d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 me-2"></i>
+                                    <span>Sites vitrines & boutiques en ligne</span>
+                                </li>
+                                <li class="mb-2 d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 me-2"></i>
+                                    <span>Systèmes de gestion (CRM, ERP simplifiés)</span>
+                                </li>
+                                <li class="d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 me-2"></i>
+                                    <span>Intégration d'APIs externes</span><br>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto pt-3 border-top">
+                            <p class="small text-primary fw-bold mb-1">À partir de 300 000 FCFA</p>
+                            <p class="small text-muted">Livraison en 2-4 semaines</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service 2 - Data -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="150">
+                    <div class="service-card about-card h-100 d-flex flex-column">
+                        <div>
+                            <div class="service-icon mb-3">
+                                <i class="fas fa-chart-line fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="mb-3">Automatisation Data</h3>
+                            <p class="text-muted">
+                                Transformez vos fichiers Excel en outils décisionnels.
+                            </p>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2 d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 me-2"></i>
+                                    <span>Rapports automatisés (Power Query)</span>
+                                </li>
+                                <li class="mb-2 d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 me-2"></i>
+                                    <span>Tableaux de bord Excel/Power BI</span>
+                                </li>
+                                <li class="d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 me-2"></i>
+                                    <span>Migration Excel → Base de données</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto pt-3 border-top">
+                            <p class="small text-primary fw-bold mb-1">À partir de 150 000 FCFA</p>
+                            <p class="small text-muted">Premiers résultats en 48h</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service 3 - Maintenance -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card about-card h-100 d-flex flex-column">
+                        <div>
+                            <div class="service-icon mb-3">
+                                <i class="fas fa-shield-alt fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="mb-3">Optimisation Technique</h3>
+                            <p class="text-muted">
+                                Améliorez votre application existante.
+                            </p>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2 d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 me-2"></i>
+                                    <span>Audit de performance et sécurité</span>
+                                </li>
+                                <li class="mb-2 d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 me-2"></i>
+                                    <span>Correction de bugs urgents</span>
+                                </li>
+                                <li class="d-flex align-items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 me-2"></i>
+                                    <span>Formation utilisateurs/admin</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto pt-3 border-top">
+                            <p class="small text-primary fw-bold mb-1">Forfait journalier : 75 000 FCFA</p>
+                            <p class="small text-muted">Intervention rapide</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4" data-aos="fade-up">
+                <div class="d-inline-block bg-light rounded-pill px-4 py-2 mb-3">
+                    <p class="mb-0 small text-muted">
+                        <i class="fas fa-star text-warning me-1"></i> 
+                        <strong>30% de réduction</strong> sur ton premier projet
+                    </p>
+                </div>
+                <a href="#contact" class="btn btn-primary btn-lg px-4">
+                    <i class="fas fa-calendar-check me-2"></i>Planifier un appel
+                </a>
+                <p class="small text-muted mt-2">Réponse sous 24h</p>
             </div>
         </div>
     </section>
@@ -937,8 +1143,8 @@
                                 <span class="tech-badge">JavaScript</span>
                                 <span class="tech-badge">Bootstrap</span>
                             </div>
-                            <a href="transport/index.php" target="_blank" class="btn btn-primary w-100">
-                                <i class="fas fa-external-link-alt me-2"></i>Voir le projet
+                            <a href="https://github.com/Ilabarry/Transport" target="_blank" class="btn btn-primary w-100">
+                                <i class="fas fa-external-link-alt me-2"></i>Voir le code
                             </a>
                         </div>
                     </div>
@@ -992,7 +1198,7 @@
                             </div>
                             <div>
                                 <h4>Email</h4>
-                                <p>barryila20@gmail.com</p>
+                                <p>barryila35@gmail.com</p>
                             </div>
                         </div>
                         
@@ -1009,11 +1215,10 @@
                         <div class="mt-4">
                             <h4>Réseaux sociaux</h4>
                             <div class="social-links">
-                                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f text-success"></i></a>
-                                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-success"></i></a>
-                                <a href="#" aria-label="Twitter"><i class="fab fa-twitter text-success"></i></a>
-                                <a href="#" aria-label="GitHub"><i class="fab fa-github text-success"></i></a>
-                                <a href="#" aria-label="Instagram"><i class="fab fa-instagram text-success"></i></a>
+                                <a href="https://m.facebook.com/profile.php?id=100073612819131" aria-label="Facebook"><i class="fab fa-facebook-f text-primary"></i></a>
+                                <a href="https://www.linkedin.com/in/ila-barry-259008343/" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-primary"></i></a>
+                                <a href="https://github.com/Ilabarry" aria-label="GitHub"><i class="fab fa-github text-primary"></i></a>
+                                <a href="https://www.instagram.com/ilabarry2?igsh=YzljYTk1ODg3Zg==" aria-label="Instagram"><i class="fab fa-instagram text-primary"></i></a>
                             </div>
                         </div>
                     </div>
@@ -1089,7 +1294,7 @@
                     <h4 class="h5 mb-3">Contact</h4>
                     <ul class="list-unstyled">
                         <li class="mb-2"><i class="fas fa-phone-alt me-2"></i> +221 78 324 94 24</li>
-                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> barryila20@gmail.com</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> barryila35@gmail.com</li>
                         <li><i class="fas fa-map-marker-alt me-2"></i> Saint-Louis, Sénégal</li>
                     </ul>
                 </div>
@@ -1101,11 +1306,10 @@
                 </div>
                 <div class="col-md-6 text-md-end">
                     <div class="social-links justify-content-md-end">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://m.facebook.com/profile.php?id=100073612819131" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/in/ila-barry-259008343/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         <a href="https://github.com/Ilabarry" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/ilabarry2?igsh=YzljYTk1ODg3Zg==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
