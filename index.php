@@ -781,7 +781,7 @@
                             <a href="#contact" class="btn btn-primary me-3 mb-3">
                                 <i class="fas fa-calendar-check me-2"></i>Disponibilités
                             </a>
-                            <a href="cv complet/index.html" target="_blank" class="btn btn-outline-light mb-3">
+                            <a href="cv complet/cv.html" target="_blank" class="btn btn-outline-light mb-3">
                                 <i class="fas fa-file-alt me-2"></i>Voir mon CV
                             </a>
                         </div>
@@ -1285,8 +1285,7 @@
                     <h4 class="h5 mb-3">Ressources</h4>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="cv complet/index.html" target="_blank" class="text-white text-decoration-none">Mon CV</a></li>
-                        <li class="mb-2"><a href="LM-complet/index.html" target="_blank" class="text-white text-decoration-none">Lettre de motivation</a></li>
-                        <li><a href="https://github.com/Ilabarry" target="_blank" class="text-white text-decoration-none">Mon GitHub</a></li><br>
+                        <li><a href="https://github.com/Ilabarry" target="_blank" class="text-white text-decoration-none">Mon GitHub</a></li>
                         <li><a href="https://www.linkedin.com/in/ila-barry-259008343/" target="_blank" class="text-white text-decoration-none">Mon Linkdin</a></li>
                     </ul>
                 </div>
